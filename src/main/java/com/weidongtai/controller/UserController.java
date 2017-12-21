@@ -2,12 +2,11 @@ package com.weidongtai.controller;
 
 import com.weidongtai.domain.User;
 import com.weidongtai.service.UserService;
-import com.weidongtai.utils.netease.MobileMessageSend;
+import com.weidongtai.utils.number.MD5;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.io.IOException;
 
 /**
  * Created by Dark on 17/12/19.
@@ -26,6 +25,13 @@ public class UserController {
         return result;
     }
 
+    // 校验验证码
+    @RequestMapping(value = "/codeCheck")
+    public String codeCheck(String phone,String code) throws Exception {
+        Boolean result = userService.codeCheck(phone,code);
+        return result.toString();
+    }
+
     // 校验用户名是否存在
     @RequestMapping("/checkusername")
     public String check(String username){
@@ -33,10 +39,17 @@ public class UserController {
         return bool.toString();
     }
 
+    // 用户注册保存
     @RequestMapping("/register")
     public String register(User user){
-        System.out.println(user.getUsername());
-        System.out.println(user.getPassword());
+        userService.saveUser(user);
         return "SUCCESS";
+    }
+
+    // 用户登录
+    @RequestMapping("/login")
+    public String login(User user){
+        Boolean notUser = userService.login(user);
+        return notUser.toString();
     }
 }

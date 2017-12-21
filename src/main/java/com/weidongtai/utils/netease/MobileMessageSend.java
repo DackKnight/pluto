@@ -1,6 +1,7 @@
 package com.weidongtai.utils.netease;
 
 import com.alibaba.fastjson.JSON;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -21,11 +22,10 @@ import java.util.List;
  *
  */
 public class MobileMessageSend {
-
     private static final String SERVER_URL="https://api.netease.im/sms/sendcode.action";//发送验证码的请求路径URL
-    private static final String APP_KEY="c6f45c64051745c0bb29c9e23e867080";//网易云信分配的账号
-    private static final String APP_SECRET="a4a5c1b7f9bb4881b0b2f012b89aa80a";//网易云信分配的密钥
-    private static final String NONCE="4232";//随机数
+    private static final String APP_KEY="219972249e39b4b762423a1693bad15a";//网易云信分配的账号
+    private static final String APP_SECRET="720eeb8db062";//网易云信分配的密钥
+    private static final String NONCE= RandomStringUtils.randomNumeric(6);//随机数
 
     public static String sendMsg(String phone) throws IOException {
         CloseableHttpClient httpclient = HttpClients.createDefault();

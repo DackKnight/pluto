@@ -11,7 +11,7 @@ public class User {
     private String username;
     private String password;
     private String mobilephone;
-    private Date date;
+    private Date registration;
     private String sex;
 
     public String getId() {
@@ -46,12 +46,12 @@ public class User {
         this.mobilephone = mobilephone;
     }
 
-    public Date getDate() {
-        return date;
+    public Date getRegistration() {
+        return registration;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setRregistration(Date date) {
+        this.registration = date;
     }
 
     public String getSex() {
@@ -69,7 +69,7 @@ public class User {
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", mobilephone='" + mobilephone + '\'' +
-                ", date=" + date +
+                ", registration=" + registration +
                 ", sex='" + sex + '\'' +
                 '}';
     }

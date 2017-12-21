@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -25,9 +26,9 @@ import com.weidongtai.utils.netease.CheckSumBuilder;
 public class MobileMessageCheck {
 
     private static final String SERVER_URL="https://api.netease.im/sms/verifycode.action";//校验验证码的请求路径URL
-    private static final String APP_KEY="c6f45c64051745c0bb29c9e23e867080";//账号
-    private static final String APP_SECRET="a4a5c1b7f9bb4881b0b2f012b89aa80a";//密钥
-    private static final String NONCE="123456";//随机数
+    private static final String APP_KEY="219972249e39b4b762423a1693bad15a";//账号
+    private static final String APP_SECRET="720eeb8db062";//密钥
+    private static final String NONCE= RandomStringUtils.randomNumeric(6);//随机数
 
     public static String checkMsg(String phone,String sum) throws IOException {
         CloseableHttpClient httpclient = HttpClients.createDefault();
