@@ -22,4 +22,8 @@ public interface UserMapper {
     // 用户登录
     @Select("select * from user where password = #{password} and (username = #{username} or mobilephone = #{username})")
     public User login(User user);
+
+    // 手机号验证
+    @Select("select * from user where mobilephone = #{phone}")
+    public User checkPhone(String phone);
 }

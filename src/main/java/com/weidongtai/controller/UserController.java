@@ -52,4 +52,11 @@ public class UserController {
         Boolean notUser = userService.login(user);
         return notUser.toString();
     }
+
+    // 手机号验证
+    @RequestMapping("/checkPhone")
+    public String checkPhone(String phone){
+        Boolean result = userService.checkPhone(phone);
+        return result.toString();
+    }
 }

@@ -66,4 +66,13 @@ public class UserServiceImpl implements UserService {
         }
         return false;
     }
+
+    @Override
+    public Boolean checkPhone(String phone) {
+        User user = userMapper.checkPhone(phone);
+        if(user != null){
+            return false;
+        }
+        return true;
+    }
 }

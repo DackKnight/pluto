@@ -16,4 +16,6 @@ public interface UserService {
     public void saveUser(User user);
 
     public Boolean login(User user);
+
+    public Boolean checkPhone(String phone);
 }

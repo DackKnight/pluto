@@ -64,23 +64,41 @@ $(function () {
         e.preventDefault();
         var phone = $("#inputPhone").val();
         var regex = /^0?(13[0-9]|15[012356789]|17[013678]|18[0-9]|14[57])[0-9]{8}$/;
-        if(!regex.test(phone)){
-            alert("手机号格式错误！请重新输入")
-        }else {
-            $.ajax({
-                url: "/user/sms",
-                type: "POST",
-                data: {"phone":phone},
-                success: function (data) {
-                    if(data == "success"){
-                        alert("短信发送成功")
-                    }else {
-                        alert("短信发送失败")
+        if(phone != "" && phone.size != 0 && phone != null){
+            if(!regex.test(phone)){
+                alert("手机号格式错误！请重新输入");
+                $("#phoneClass").removeClass("success").addClass("error");
+            }else {
+                $.ajax({
+                    url: "/user/checkPhone",
+                    type: "POST",
+                    data: {"phone":phone},
+                    success: function (data) {
+                        if(data == "true"){
+                            $.ajax({
+                                url: "/user/sms",
+                                type: "POST",
+                                data: {"phone":phone},
+                                success: function (data) {
+                                    if(data == "success"){
+                                        alert("短信发送成功")
+                                        $("#phoneClass").removeClass("error").addClass("success");
+                                    }else {
+                                        alert("短信发送失败")
+                                        $("#phoneClass").removeClass("success").addClass("error");
+                                    }
+                                }
+                            });
+                        }else {
+                            alert("手机号已被注册");
+                            $("#phoneClass").removeClass("success").addClass("error");
+                        }
                     }
-                }
-            });
+                });
+            }
+        }else {
+            $("#phoneClass").removeClass("success").removeClass("error");
         }
-
     });
     // 验证码校验
     $("#inputValidation").on("blur",function (e) {
@@ -91,7 +109,7 @@ $(function () {
         var sendate = {"phone":phone,"code":pthonevalidation};
         if(pthonevalidation != "" && pthonevalidation.size != 0 && pthonevalidation != null){
             $.ajax({
-               url: "/user/codeCheck",
+                url: "/user/codeCheck",
                 type: "POST",
                 data: sendate,
                 success: function (data) {
@@ -109,24 +127,6 @@ $(function () {
         }else {
             $("#codeClass").removeClass("success").removeClass("error");
         }
-    });
-    // 注册提交
-    $("#regist").on("click",function (e) {
-        e.preventDefault();
-        var username = $("#inputUsername").val();
-        var password = $("#inputPassword").val();
-        var userphone = $("#inputPhone").val();
-        var sendata = {"username":username,"password":password,"mobilephone":userphone}
-        $.ajax({
-            url: "/user/register",
-            type: "POST",
-            data: sendata,
-            success: function (data) {
-                if(data == "SUCCESS"){
-                    window.location.href = "";
-                }
-            }
-        });
     });
     // 登录校验
     $("#sign").on("click",function (e) {
@@ -153,6 +153,7 @@ $(function () {
     // 密码强度校验
     $("#inputPassword").on("blur",function () {
         var password = $("#inputPassword").val();
+        var inputconfirmPassword = $("#inputconfirmPassword").val();
         var patrn=/^(\w){6,20}$/;
         var check = /^(?![a-zA-z]+$)(?!\d+$)(?![!@#$%^&*]+$)[a-zA-Z\d!@#$%^&*]+$/;
         $("#passwordOk").attr("style","display:none");
@@ -178,5 +179,36 @@ $(function () {
         }else {
             $("#passwordClass").removeClass("success").removeClass("error");
         }
+        if(inputconfirmPassword != "" && inputconfirmPassword.size != 0 && inputconfirmPassword != null){
+            checkPassword();
+        }
+    });
+    // 注册提交
+    $("#regist").on("click",function (e) {
+        e.preventDefault();
+        var username_are = $("#username_are").attr("class");
+        var phoneClass = $("#phoneClass").attr("class");
+        var codeClass= $("#codeClass").attr("class");
+        var passwordClass = $("#passwordClass").attr("class");
+        var firmPasswordClass = $("#firmPasswordClass").attr("class");
+        if(username_are.indexOf("error") > 0 || phoneClass.indexOf("error") > 0
+            || codeClass.indexOf("error") > 0 || passwordClass.indexOf("error") > 0
+            || firmPasswordClass.indexOf("error") > 0){
+            return;
+        }
+        var username = $("#inputUsername").val();
+        var password = $("#inputPassword").val();
+        var userphone = $("#inputPhone").val();
+        var sendata = {"username":username,"password":password,"mobilephone":userphone}
+        $.ajax({
+            url: "/user/register",
+            type: "POST",
+            data: sendata,
+            success: function (data) {
+                if(data == "SUCCESS"){
+                    window.location.href = "/login";
+                }
+            }
+        });
     });
 });
