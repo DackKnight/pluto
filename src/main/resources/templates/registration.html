@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
-    <title>Title</title>
+    <title>注册</title>
     <link th:href="@{/static/css/bootstrap.min.css}" rel="stylesheet">
     <link th:href="@{/static/css/bootstrap-responsive.min.css}" rel="stylesheet">
     <link th:href="@{/static/css/custom.css}" rel="stylesheet">
@@ -13,80 +13,101 @@
     <script th:src="@{/static/js/phonenumberinputlimit.js}"></script>
 </head>
 <body>
-<form class="form-horizontal">
-    <div class="control-group" id="username_are">
-        <div style="float: left">
-            <label class="control-label" for="inputUsername">用户名：</label>
-            <div class="controls">
-                <input type="text" id="inputUsername" name="username" placeholder="用户名">
-            </div>
-        </div>
-        <div style="display:none; float:left;" id="nameOccupied" >
-            <span class="label label-important">用户名被占用</span>
-        </div>
-        <div style="display:none; float:left;" id="nameOk">
-            <span class="label label-success">用户名可以使用</span>
+<div class="container">
+    <div class="row row-centered">
+        <div class="well col-md-6 col-centered">
+            <form class="form-horizontal">
+                <div class="control-group" id="username_are">
+                    <div style="float: left">
+                        <label class="control-label" for="inputUsername">用户名：</label>
+                        <div class="controls">
+                            <input type="text" id="inputUsername" name="username" placeholder="用户名">
+                        </div>
+                    </div>
+                    <div style="display:none; float:left;" id="nameOccupied" >
+                        <span class="label label-important">用户名被占用</span>
+                    </div>
+                    <div style="display:none; float:left;" id="checkUsernameIsNot" >
+                        <span class="label label-important">该项为必填项</span>
+                    </div>
+                    <div style="display:none; float:left;" id="nameOk">
+                        <span class="label label-success">用户名可以使用</span>
+                    </div>
+                </div>
+                <div class="control-group" id="phoneClass">
+                    <label class="control-label" for="inputPhone">手机号：</label>
+                    <div class="controls">
+                        <input type="text" id="inputPhone" name="phone" placeholder="手机号">
+                        <div class="btn-group">
+                            <button class="btn" id="validation">发送验证码</button>
+                        </div>
+                    </div>
+                    <div style="display:none; float:left;" id="checkPhoneIsNot" >
+                        <span class="label label-important">该项为必填项</span>
+                    </div>
+                </div>
+                <div class="control-group" id="codeClass">
+                    <div style="float: left">
+                        <label class="control-label" for="inputValidation">验证码：</label>
+                        <div class="controls">
+                            <input type="text" id="inputValidation" name="validation" placeholder="请输入验证码">
+                        </div>
+                    </div>
+                    <div style="display:none; float:left;" id="codeOccupied" >
+                        <span class="label label-important">验证码错误</span>
+                    </div>
+                    <div style="display:none; float:left;" id="checkCodeIsNot" >
+                        <span class="label label-important">该项为必填项</span>
+                    </div>
+                    <div style="display:none; float:left;" id="codeOk">
+                        <span class="label label-success">验证码正确</span>
+                    </div>
+                </div>
+                <div class="control-group" id="passwordClass">
+                    <div style="float: left">
+                        <label class="control-label" for="inputPassword">密码：</label>
+                        <div class="controls">
+                            <input type="password" id="inputPassword" name="password" placeholder="密码">
+                        </div>
+                    </div>
+                    <div style="display:none; float:left;" id="passwordOccupied" >
+                        <span class="label label-important">只能输入6-20个字母、数字、下划线</span>
+                    </div>
+                    <div style="display:none; float:left;" id="passwordOccupied2" >
+                        <span class="label label-important">密码过于简单 必须是字母数字组合</span>
+                    </div>
+                    <div style="display:none; float:left;" id="checkPasswordIsNot" >
+                        <span class="label label-important">该项为必填项</span>
+                    </div>
+                    <div style="display:none; float:left;" id="passwordOk">
+                        <span class="label label-success">密码可以使用</span>
+                    </div>
+                </div>
+                <div class="control-group" id="firmPasswordClass">
+                    <div style="float: left">
+                        <label class="control-label" for="inputPassword">确认密码：</label>
+                        <div class="controls">
+                            <input type="password" id="inputconfirmPassword" name="confirmpassowrd" placeholder="确认密码">
+                        </div>
+                    </div>
+                    <div style="display:none; float:left;" id="firmPasswordOccupied" >
+                        <span class="label label-important">两次密码不一致</span>
+                    </div>
+                    <div style="display:none; float:left;" id="checkFirmPasswordIsNot" >
+                        <span class="label label-important">该项为必填项</span>
+                    </div>
+                    <div style="display:none; float:left;" id="firmPasswordOk">
+                        <span class="label label-success">确认密码正确</span>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="controls">
+                        <button type="submit" class="btn btn-success btn-block" id="regist">注册</button>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
-    <div class="control-group" id="phoneClass">
-        <label class="control-label" for="inputPhone">手机号：</label>
-        <div class="controls">
-            <input type="text" id="inputPhone" name="phone" placeholder="手机号">
-            <div class="btn-group">
-                <button class="btn" id="validation">发送验证码</button>
-            </div>
-        </div>
-    </div>
-    <div class="control-group" id="codeClass">
-        <div style="float: left">
-            <label class="control-label" for="inputValidation">验证码：</label>
-            <div class="controls">
-                <input type="text" id="inputValidation" name="validation" placeholder="请输入验证码">
-            </div>
-        </div>
-        <div style="display:none; float:left;" id="codeOccupied" >
-            <span class="label label-important">验证码错误</span>
-        </div>
-        <div style="display:none; float:left;" id="codeOk">
-            <span class="label label-success">验证码正确</span>
-        </div>
-    </div>
-    <div class="control-group" id="passwordClass">
-        <div style="float: left">
-            <label class="control-label" for="inputPassword">密码：</label>
-            <div class="controls">
-                <input type="password" id="inputPassword" name="password" placeholder="密码">
-            </div>
-        </div>
-        <div style="display:none; float:left;" id="passwordOccupied" >
-            <span class="label label-important">只能输入6-20个字母、数字、下划线</span>
-        </div>
-        <div style="display:none; float:left;" id="passwordOccupied2" >
-            <span class="label label-important">密码过于简单 必须是字母数字组合</span>
-        </div>
-        <div style="display:none; float:left;" id="passwordOk">
-            <span class="label label-success">密码可以使用</span>
-        </div>
-    </div>
-    <div class="control-group" id="firmPasswordClass">
-        <div style="float: left">
-            <label class="control-label" for="inputPassword">确认密码：</label>
-            <div class="controls">
-                <input type="password" id="inputconfirmPassword" name="confirmpassowrd" placeholder="确认密码">
-            </div>
-        </div>
-        <div style="display:none; float:left;" id="firmPasswordOccupied" >
-            <span class="label label-important">两次密码不一致</span>
-        </div>
-        <div style="display:none; float:left;" id="firmPasswordOk">
-            <span class="label label-success">确认密码正确</span>
-        </div>
-    </div>
-    <div class="control-group">
-        <div class="controls">
-            <button type="submit" class="btn" id="regist">注册</button>
-        </div>
-    </div>
-</form>
+</div>
 </body>
 </html>

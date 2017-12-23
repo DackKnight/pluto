@@ -4,7 +4,17 @@
 $(function () {
     // 首页登录跳转
     $("#login").on("click",function () {
-        window.location.href = "/login";
+        $.ajax({
+            url: "/checklogin",
+            type: "POST",
+            success: function (data) {
+                if(data == "true"){
+                    alert("登录成功");
+                }else {
+                    window.location.href = "/login";
+                }
+            }
+        });
     });
     // 首页注册跳转
     $("#registration").on("click",function () {
@@ -15,9 +25,10 @@ $(function () {
         var username = $("#inputUsername").val();
         $("#nameOk").attr("style","display:none");
         $("#nameOccupied").attr("style","display:none");
-        if(username != "" && username.size != 0 && username != null){
+        $("#checkUsernameIsNot").attr("style","display:none");
+        if(username != "" && username.length != 0 && username != null){
             $.ajax({
-                url: "/user/checkusername",
+                url: "/user/checkUsername",
                 type: "POST",
                 data: {"username":username},
                 success: function (data) {
@@ -45,7 +56,8 @@ $(function () {
         var inputconfirmPassword = $("#inputconfirmPassword").val();
         $("#firmPasswordOk").attr("style","display:none");
         $("#firmPasswordOccupied").attr("style","display:none");
-        if(inputconfirmPassword != "" && inputconfirmPassword.size != 0 && inputconfirmPassword != null){
+        $("#checkFirmPasswordIsNot").attr("style","display:none");
+        if(inputconfirmPassword != "" && inputconfirmPassword.length != 0 && inputconfirmPassword != null){
             if(password == inputconfirmPassword){
                 $("#firmPasswordClass").removeClass("error").addClass("success");
                 $("#firmPasswordOccupied").attr("style","display:none");
@@ -64,7 +76,8 @@ $(function () {
         e.preventDefault();
         var phone = $("#inputPhone").val();
         var regex = /^0?(13[0-9]|15[012356789]|17[013678]|18[0-9]|14[57])[0-9]{8}$/;
-        if(phone != "" && phone.size != 0 && phone != null){
+        if(phone != "" && phone.length != 0 && phone != null) {
+            $("#phoneClass").removeClass("success").addClass("error");
             if(!regex.test(phone)){
                 alert("手机号格式错误！请重新输入");
                 $("#phoneClass").removeClass("success").addClass("error");
@@ -106,8 +119,9 @@ $(function () {
         var pthonevalidation = $("#inputValidation").val();
         $("#codeOk").attr("style","display:none");
         $("#codeOccupied").attr("style","display:none");
+        $("#checkCodeIsNot").attr("style","display:none");
         var sendate = {"phone":phone,"code":pthonevalidation};
-        if(pthonevalidation != "" && pthonevalidation.size != 0 && pthonevalidation != null){
+        if(pthonevalidation != "" && pthonevalidation.length != 0 && pthonevalidation != null){
             $.ajax({
                 url: "/user/codeCheck",
                 type: "POST",
@@ -133,8 +147,9 @@ $(function () {
         e.preventDefault();
         var username = $("#inputUsername").val();
         var password = $("#inputPassword").val();
-        var sendate = {"username":username,"password":password};
-        if((username != "" && username.size !=0 && username != null) && (password != "" && password.size !=0 && password != null)){
+        var autologin = $("#autologin")[0].checked;
+        var sendate = {"username":username,"password":password,"autologin":autologin};
+        if((username != "" && username.length !=0 && username != null) && (password != "" && password.length !=0 && password != null)){
             $.ajax({
                 url: "/user/login",
                 type: "POST",
@@ -159,7 +174,8 @@ $(function () {
         $("#passwordOk").attr("style","display:none");
         $("#passwordOccupied").attr("style","display:none");
         $("#passwordOccupied2").attr("style","display:none");
-        if(password != "" && password.size != 0 && password !=null){
+        $("#checkPasswordIsNot").attr("style","display:none");
+        if(password != "" && password.length != 0 && password !=null){
             if(!patrn.test(password)){
                 $("#passwordClass").removeClass("success").addClass("error");
                 $("#passwordOk").attr("style","display:none");
@@ -179,13 +195,42 @@ $(function () {
         }else {
             $("#passwordClass").removeClass("success").removeClass("error");
         }
-        if(inputconfirmPassword != "" && inputconfirmPassword.size != 0 && inputconfirmPassword != null){
+        if(inputconfirmPassword != ""){
             checkPassword();
         }
     });
     // 注册提交
     $("#regist").on("click",function (e) {
         e.preventDefault();
+        var checkUsernameIsNot = $("#inputUsername").val();
+        var checkPasswordIsNot = $("#inputPassword").val();
+        var checkPhoneIsNot = $("#inputPhone").val();
+        var checkCodeIsNot = $("#inputValidation").val();
+        var checkFirmPasswordIsNot = $("#inputconfirmPassword").val();
+        var submitAttributeArray = new Array(checkUsernameIsNot,checkPasswordIsNot,checkPhoneIsNot,checkCodeIsNot,checkFirmPasswordIsNot);
+        for(var x = 0; x < submitAttributeArray.length; x++){
+            if(submitAttributeArray[x] == ""){
+                switch (x){
+                    case 0:
+                        $("#checkUsernameIsNot").attr("style","display:block");
+                        $("#username_are").removeClass("success").addClass("error");
+                    case 1:
+                        $("#checkPasswordIsNot").attr("style","display:block");
+                        $("#passwordClass").removeClass("success").addClass("error");
+                    case 2:
+                        // $("#checkPhoneIsNot").attr("style","display:block");
+                        $("#phoneClass").removeClass("success").addClass("error");
+                    case 3:
+                        $("#checkCodeIsNot").attr("style","display:block");
+                        $("#codeClass").removeClass("success").addClass("error");
+                    case 4:
+                        $("#checkFirmPasswordIsNot").attr("style","display:block");
+                        $("#firmPasswordClass").removeClass("success").addClass("error");
+                }
+                return;
+            }
+        }
+        // -------------------------------------------
         var username_are = $("#username_are").attr("class");
         var phoneClass = $("#phoneClass").attr("class");
         var codeClass= $("#codeClass").attr("class");
