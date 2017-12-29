@@ -1,0 +1,25 @@
+.container{
+    display:table;
+    height:100%;
+    width: 100%;
+}
+.con{
+    display: flex;
+    justify-content: space-between;
+}
+.name{
+    font-size: 20px;
+}
+
+.foris{
+    display: flex;
+}
+.foris>div{
+    flex: 1;
+}
+.gap_name{
+    margin-bottom: 30px;
+}
+.gap_id{
+    margin-bottom: 30px;
+}

@@ -8,6 +8,7 @@ import com.weidongtai.utils.netease.MobileMessageSend;
 import com.weidongtai.utils.number.MD5;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 
@@ -15,6 +16,7 @@ import java.util.Date;
  * Created by Dark on 17/12/19.
  */
 @Service
+@Transactional
 public class UserServiceImpl implements UserService {
 
     @Autowired
@@ -57,14 +59,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Boolean login(User user) {
+    public User login(User user) {
         String password = user.getPassword();
         user.setPassword(MD5.sign(password,"N7KLTf4T","UTF-8"));
         User notUser = userMapper.login(user);
         if(notUser != null){
-            return true;
+            return notUser;
         }
-        return false;
+        return null;
     }
 
     @Override

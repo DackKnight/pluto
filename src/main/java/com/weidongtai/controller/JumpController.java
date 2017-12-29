@@ -5,6 +5,7 @@ import com.weidongtai.service.UserService;
 import com.weidongtai.utils.servlet.CookiesUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -43,9 +44,13 @@ public class JumpController {
             User user = new User();
             user.setUsername(users[0]);
             user.setPassword(users[1]);
-            Boolean results = userService.login(user);
-            return results.toString();
+            User notUser = userService.login(user);
+            if(notUser != null){
+                request.setAttribute("user",notUser);
+                return "true";
+            }
         }
         return "";
     }
+
 }

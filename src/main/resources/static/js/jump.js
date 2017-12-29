@@ -7,9 +7,12 @@ $(function () {
         $.ajax({
             url: "/checklogin",
             type: "POST",
-            success: function (data) {
+            // beforeSend: function (xhr) {
+            //     xhr.setRequestHeader('Authorization', 'Basic cGxvdXQ6bMTM=');
+            // },
+        success: function (data) {
                 if(data == "true"){
-                    alert("登录成功");
+                    window.location.href = "/home";
                 }else {
                     window.location.href = "/login";
                 }
@@ -96,6 +99,7 @@ $(function () {
                                     if(data == "success"){
                                         alert("短信发送成功")
                                         $("#phoneClass").removeClass("error").addClass("success");
+                                        countdown(e);
                                     }else {
                                         alert("短信发送失败")
                                         $("#phoneClass").removeClass("success").addClass("error");
@@ -115,6 +119,7 @@ $(function () {
     });
     // 验证码校验
     $("#inputValidation").on("blur",function (e) {
+        e.preventDefault()
         var phone = $("#inputPhone").val();
         var pthonevalidation = $("#inputValidation").val();
         $("#codeOk").attr("style","display:none");
@@ -144,26 +149,39 @@ $(function () {
     });
     // 登录校验
     $("#sign").on("click",function (e) {
-        e.preventDefault();
-        var username = $("#inputUsername").val();
-        var password = $("#inputPassword").val();
-        var autologin = $("#autologin")[0].checked;
-        var sendate = {"username":username,"password":password,"autologin":autologin};
-        if((username != "" && username.length !=0 && username != null) && (password != "" && password.length !=0 && password != null)){
-            $.ajax({
-                url: "/user/login",
-                type: "POST",
-                data: sendate,
-                success: function (data) {
-                    if(data == "true"){
-                        alert("登录成功")
-                        // window.location.href = "";
-                    }else {
-                        alert("登录失败 用户名或密码错误")
-                    }
+        var username = $("#inputUsername_login").val();
+        var password = $("#inputPassword_login").val();
+        // var autologin = $("#autologin")[0].checked;
+        var user = [username,password];
+        for (var x = 0;x<user.length;x++){
+            if (user[x] == ""){
+                switch (x){
+                    case 0:
+                        $("#inputUse").addClass("error");
+                        e.preventDefault();
+                        break;
+                    case 1:
+                        $("#inputPass").addClass("error");
+                        e.preventDefault();
+                        break;
                 }
-            });
+                return;
+            }
         }
+        // var sendate = {"username":username,"password":password,"autologin":autologin};
+        // $.ajax({
+        //     url: "/user/login",
+        //     type: "POST",
+        //     data: sendate,
+        //     success: function (data) {
+        //         if(data == "true"){
+        //             // alert("登录成功")
+        //             window.location.href = "/home";
+        //         }else {
+        //             alert("登录失败 用户名或密码错误")
+        //         }
+        //     }
+        // });
     });
     // 密码强度校验
     $("#inputPassword").on("blur",function () {
@@ -214,18 +232,23 @@ $(function () {
                     case 0:
                         $("#checkUsernameIsNot").attr("style","display:block");
                         $("#username_are").removeClass("success").addClass("error");
+                        break;
                     case 1:
                         $("#checkPasswordIsNot").attr("style","display:block");
                         $("#passwordClass").removeClass("success").addClass("error");
+                        break;
                     case 2:
                         // $("#checkPhoneIsNot").attr("style","display:block");
                         $("#phoneClass").removeClass("success").addClass("error");
+                        break;
                     case 3:
                         $("#checkCodeIsNot").attr("style","display:block");
                         $("#codeClass").removeClass("success").addClass("error");
+                        break;
                     case 4:
                         $("#checkFirmPasswordIsNot").attr("style","display:block");
                         $("#firmPasswordClass").removeClass("success").addClass("error");
+                        break;
                 }
                 return;
             }
@@ -256,4 +279,28 @@ $(function () {
             }
         });
     });
+    $("#inputUsername_login").on("blur",function () {
+        $("#inputUse").removeClass("error");
+    });
+    $("#inputPassword_login").on("blur",function () {
+        $("#inputPass").removeClass("error");
+    });
+
+    // 发送验证码倒计时
+    function countdown(e) {
+        $(e.target).attr("disabled","disabled");
+        var content = e.target.innerHTML;
+        var index = 10 ;
+        e.target.innerHTML  = index;
+        var time = setInterval(function(){
+            index--;
+            e.target.innerHTML = index;
+            if(index<=0) {
+                e.target.innerHTML = content;
+                $(e.target).removeAttr("disabled");
+                clearInterval(time);
+            }
+        },1000)
+    }
+
 });

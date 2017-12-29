@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+    <title>Title</title>
+    <link th:href="@{/static/css/bootstrap-responsive.min.css}" rel="stylesheet">
+    <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link th:href="@{/static/css/home.css}" rel="stylesheet">
+    <script th:src="@{/static/jq/jquery-3.2.1.min.js}"></script>
+    <script th:src="@{/static/js/bootstrap.min.js}"></script>
+</head>
+<body>
+<div class="container">
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs con" role="tablist">
+        <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">首页</a></li>
+        <li role="presentation"><a href="#found" aria-controls="found" role="tab" data-toggle="tab">发现</a></li>
+        <li role="presentation">
+            <a href="#camera" aria-controls="camera" role="tab" data-toggle="tab">
+                <span class="glyphicon glyphicon-camera"></span>
+            </a>
+        </li>
+        <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">消息</a></li>
+        <li role="presentation"><a href="#my" aria-controls="my" role="tab" data-toggle="tab">我的</a></li>
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="home">
+            ...
+        </div>
+        <div role="tabpanel" class="tab-pane" id="found">
+            ...
+        </div>
+        <div role="tabpanel" class="tab-pane" id="camera">
+            ...
+        </div>
+        <div role="tabpanel" class="tab-pane" id="messages">
+            ...
+        </div>
+        <div role="tabpanel" class="tab-pane" id="my">
+            <br>
+            <div class="bs-example bs-example-images foris" data-example-id="image-shapes">
+                <div>
+                    <img data-src="holder.js/140x140" class="img-thumbnail" alt="140x140" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMTQwIiBoZWlnaHQ9IjE0MCIgdmlld0JveD0iMCAwIDE0MCAxNDAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjwhLS0KU291cmNlIFVSTDogaG9sZGVyLmpzLzE0MHgxNDAKQ3JlYXRlZCB3aXRoIEhvbGRlci5qcyAyLjYuMC4KTGVhcm4gbW9yZSBhdCBodHRwOi8vaG9sZGVyanMuY29tCihjKSAyMDEyLTIwMTUgSXZhbiBNYWxvcGluc2t5IC0gaHR0cDovL2ltc2t5LmNvCi0tPjxkZWZzPjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+PCFbQ0RBVEFbI2hvbGRlcl8xNjA5NWYwN2NkZiB0ZXh0IHsgZmlsbDojQUFBQUFBO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1mYW1pbHk6QXJpYWwsIEhlbHZldGljYSwgT3BlbiBTYW5zLCBzYW5zLXNlcmlmLCBtb25vc3BhY2U7Zm9udC1zaXplOjEwcHQgfSBdXT48L3N0eWxlPjwvZGVmcz48ZyBpZD0iaG9sZGVyXzE2MDk1ZjA3Y2RmIj48cmVjdCB3aWR0aD0iMTQwIiBoZWlnaHQ9IjE0MCIgZmlsbD0iI0VFRUVFRSIvPjxnPjx0ZXh0IHg9IjQ0LjA1NDY4NzUiIHk9Ijc0LjUiPjE0MHgxNDA8L3RleHQ+PC9nPjwvZz48L3N2Zz4=" data-holder-rendered="true" style="width: 140px; height: 140px;">
+                </div>
+                <div>
+                    <div class="gap_name">
+                        <span class="name"><span th:text="${user.username}"></span></span>
+                    </div>
+                    <div class="gap_id">
+                        <h6>
+                            <small>
+                                <span class="id">手机号:<span th:text="${user.mobilephone}"></span></span>
+                            </small>
+                        </h6>
+                    </div>
+                    <div>
+                        <span>关注:0</span>&nbsp;&nbsp;&nbsp;
+                        <span>喜欢:0</span>&nbsp;&nbsp;&nbsp;
+                        <span>粉丝:0</span>
+                    </div>
+                </div>
+            </div>
+            <hr>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

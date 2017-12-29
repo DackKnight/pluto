@@ -1,9 +1,9 @@
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/pluto
+    url:
     username: root
-    password: root
+    password:
   jpa:
       database : MYSQL
       show-sql : true
@@ -30,3 +30,34 @@ spring:
           prefix: /templates/
           suffix: .html
     static-path-pattern: /static/**
+  redis:
+    database: 0
+    host: 127.0.0.1
+    port: 6379
+    password:
+    pool:
+      max-active: 8
+      max-wait: 1
+      max-idle: 8
+      min-idle: 0
+    timeout: 0
+mybatis:
+    type-aliases-package: com.weidongtai.domain
+#    type-handlers-package: com.weidongtai.typehandler
+    configuration:
+        map-underscore-to-camel-case: true
+        default-fetch-size: 100
+        default-statement-timeout: 30
+logging:
+    level:
+        com:
+          weidongtai:
+            mapper: debug
+#security:
+#  basic:
+#    enabled: true # 启用SpringSecuity的安全配置项
+#  user:
+#    name: plout # 用户名
+#    password: lsc13 # 密码
+#    role: # 授权角色
+#    - USER

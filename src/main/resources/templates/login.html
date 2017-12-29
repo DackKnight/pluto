@@ -12,29 +12,30 @@
     <script th:src="@{/static/js/jump.js}"></script>
 </head>
 <body>
+<div class="Absolute-Center">
     <div class="container">
         <div class="row row-centered">
             <div class="well col-md-6 col-centered">
-                <form class="form-horizontal">
+                <form class="form-horizontal" action="/user/login" method="post">
                     <div class="cen col-center-block">
-                        <div class="control-group">
-                            <label class="control-label" for="inputUsername">登录名或手机号:</label>
+                        <div class="control-group" id="inputUse">
+                            <label class="control-label" for="inputUsername_login">登录名或手机号:</label>
                             <div class="controls">
-                                <input type="text" id="inputUsername" placeholder="登录名或手机号">
+                                <input type="text" id="inputUsername_login" name="username" placeholder="登录名或手机号">
                             </div>
                         </div>
-                        <div class="control-group">
-                            <label class="control-label" for="inputPassword">密码:</label>
+                        <div class="control-group" id="inputPass">
+                            <label class="control-label" for="inputPassword_login">密码:</label>
                             <div class="controls">
-                                <input type="password" id="inputPassword" placeholder="密码">
+                                <input type="password" id="inputPassword_login" name="password" placeholder="密码">
                             </div>
                         </div>
                         <div class="control-group">
                             <div class="controls">
                                 <label class="checkbox">
-                                    <input type="checkbox" id="autologin"> 自动登录
+                                    <input type="checkbox" id="autologin" name="autologin" value="true"> 自动登录
                                 </label>
-                                <button type="submit" class="btn btn-success btn-block" id="sign">登录</button>
+                                <button class="btn btn-primary btn-lg disabled btn-block" role="button" id="sign">登录</button>
                             </div>
                         </div>
                     </div>
@@ -42,5 +43,7 @@
             </div>
         </div>
     </div>
+</div>
+<img th:src="@{/static/img/logo/SupremeLogo.jpg}" width="30%"/>
 </body>
 </html>
